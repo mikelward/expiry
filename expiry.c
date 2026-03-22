@@ -147,9 +147,9 @@ int main(int argc, char **argv)
             plaststr = malloc(DATEBUF_MAX);
             if (plaststr)
             {
-                int ret;
                 if (!strftime(plaststr, DATEBUF_MAX, "%e %b %Y", plasttm))
                 {
+                    free(plaststr);
                     plaststr = NULL;
                 }
             }
