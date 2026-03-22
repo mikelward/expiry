@@ -135,6 +135,13 @@ int main(int argc, char **argv)
         now = time(NULL);
         last = pshadow->sp_lstchg * SECS_IN_DAY;
         age = now - last;
+
+        if (pshadow->sp_max == -1)
+        {
+            printf("Password aging is disabled\n");
+            exit(EX_VALID);
+        }
+
         expires = last + (pshadow->sp_max * SECS_IN_DAY);
         left = expires - now;
 
