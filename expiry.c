@@ -45,7 +45,7 @@ int verbose = 0;	/* Whether to print extra information */
  */
 void usage()
 {
-    fprintf(stderr, "%s: expiry <username>\n", progname);
+    fprintf(stderr, "%s: expiry [-v] <username>\n", progname);
 }
 
 int main(int argc, char **argv)
