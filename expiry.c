@@ -198,8 +198,16 @@ int main(int argc, char **argv)
     }
     else
     {
-        fprintf(stderr, "Cannot get shadow password information for %s: %s\n",
-                username, strerror(errno));
+        if (errno == 0)
+        {
+            fprintf(stderr, "No shadow password information for %s\n",
+                    username);
+        }
+        else
+        {
+            fprintf(stderr, "Cannot get shadow password information for %s: %s\n",
+                    username, strerror(errno));
+        }
         exit(EX_FAILURE);
     }
 
