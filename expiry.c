@@ -77,10 +77,17 @@ int main(int argc, char **argv)
         argv += optind;
 
         username = argv[0];
+        if (username == NULL)
+        {
+            fprintf(stderr, "No username supplied\n");
+            usage();
+            exit(EX_USAGE);
+        }
     }
     else
     {
         fprintf(stderr, "No username supplied\n");
+        usage();
         exit(EX_USAGE);
     }
 
