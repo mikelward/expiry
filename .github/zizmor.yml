@@ -1,0 +1,30 @@
+# Policy for zizmor; the workflow beside this file runs it.
+#
+# The defaults demand hash pins everywhere and refuse pull_request_target
+# outright. Both collide with decisions this fleet makes deliberately, so
+# the exceptions live here, scoped as narrowly as the tool allows -- a NEW
+# workflow reaching for pull_request_target is still flagged, because only
+# the named files below are excused.
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        # `@main` IS the release for these sibling actions: this fleet
+        # tracks them deliberately, there is no release step on their
+        # side, and a pin would be a thing to bump here on every one of
+        # their merges.
+        "mikelward/codex-review": ref-pin
+        "mikelward/codex-review/.github/workflows/check-consumer.yml": ref-pin
+        "mikelward/lanes": ref-pin
+        # Official actions may pin to a tag, as every workflow here does.
+        "actions/*": ref-pin
+        # Everything else must pin to a hash.
+        "*": hash-pin
+  dangerous-triggers:
+    # Load-bearing pull_request_target usage in the codex-review pair,
+    # reasoned through in mikelward/codex-review's own docs/CONSUMER.md:
+    # neither checks out or executes pull request code with the elevated
+    # token.
+    ignore:
+      - codex-review.yml
+      - codex-review-check.yml
